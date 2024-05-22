@@ -55,10 +55,8 @@ html{
     align-items: flex-end;
     color: #fff;
     height: 39%;
-}
-
-.result span{
-    font-size: 130px;
+    width: 100%;
+    word-wrap: break-word;
     font-weight: 400;
 }
 
@@ -92,6 +90,12 @@ html{
 
 .item3{
     background-color: #FF9F04;
+    transition-duration: 0.2s;
+}
+
+.item3:focus{
+    background-color: #fff;
+    color: #FF9F04;
 }
 
 .numbers, .comma{
