@@ -6,15 +6,21 @@ html{
     height: 100%;
     font-family: "Open Sans", sans-serif;
     font-weight: 700;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .smartphone{
-    width: 414px;
-    height: 896px;
+    max-width: 380px;
+    max-height: 896px;
+    min-width: 200px;
+    min-height: 420px;
     background-color: #000000;
     border-radius: 30px;
     padding-top: 20px;
     position: relative;
+    width: 80vw;
+    height: 85vh;
 }
 
 .topInfos{
@@ -39,7 +45,7 @@ html{
     bottom: 0px;
     left: 30%;
     border-radius: 3px;
-    margin-bottom: 13px
+    margin-bottom: 5%;
 }
 
 .calculator{
@@ -69,7 +75,7 @@ html{
 }
 
 .item{
-    font-size: 35px;
+    font-size: 2em;
     border: none;
     border-radius: 100%;
     width: 90%;
