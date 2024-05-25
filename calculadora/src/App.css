@@ -64,6 +64,9 @@ html{
     width: 100%;
     word-wrap: break-word;
     font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
 }
 
 .buttons{
