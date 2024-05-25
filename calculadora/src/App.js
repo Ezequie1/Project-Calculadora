@@ -68,20 +68,20 @@ export default function App() {
     if(firstValue !== null && operation !== null){
       switch(operation){
         case 'x':
-          setDisplayValue(String(firstValue * secondValue))
-          setFirstValue(firstValue * secondValue)
+          setDisplayValue(String((firstValue * secondValue).toFixed(2)))
+          setFirstValue((firstValue * secondValue).toFixed(2))
         break;
         case '/':
-          setDisplayValue(String(firstValue / secondValue))
-          setFirstValue(firstValue / secondValue)
+          setDisplayValue(String((firstValue / secondValue).toFixed(2)))
+          setFirstValue((firstValue / secondValue).toFixed(2))
         break;
         case '+': 
-          setDisplayValue(String(firstValue + secondValue))
-          setFirstValue(firstValue + secondValue)
+          setDisplayValue(String((firstValue + secondValue).toFixed(2)))
+          setFirstValue((firstValue + secondValue).toFixed(2))
         break;
         case '-': 
-          setDisplayValue(String(firstValue - secondValue))
-          setFirstValue(firstValue - secondValue)
+          setDisplayValue(String((firstValue - secondValue).toFixed(2)))
+          setFirstValue((firstValue - secondValue).toFixed(2))
         break;
         default:
         break;
