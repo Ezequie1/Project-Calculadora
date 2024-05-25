@@ -86,6 +86,10 @@ html{
     padding: 0px;
 }
 
+.item:active{
+    background-color: #ffffff57;
+}
+
 .percent, .item1{
     background-color: #A5A5A5;
 }

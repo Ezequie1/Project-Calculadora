@@ -2,13 +2,12 @@ import './App.css';
 import SignalCellularAltRoundedIcon from '@mui/icons-material/SignalCellularAltRounded';
 import WifiRoundedIcon from '@mui/icons-material/WifiRounded';
 import battery from './assets/battery.png'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function App() {
-
   const [time, updateTime] = useState([])
   setTimeout(() => { updateTime( new Date().toTimeString().split(':'))}, 500)
-  const [font, setFont] = useState('5.8rem')
+  const [font, setFont] = useState('5.3rem')
   const [firstValue, setFirstValue] = useState(0)
   const [oneFiled, setOne] = useState(false)
   const [secondValue, setSecondValue] = useState(0)
@@ -16,47 +15,46 @@ export default function App() {
   const [displayValue, setDisplayValue] = useState('0')
   const [operation, setOperation] = useState(null)
 
+  useEffect(() =>{
+    let length = displayValue.length - (displayValue.split('.').length - 1)
+    switch(length){
+      case (length < 7): 
+        setFont('5.3rem')
+      break;
+      case 7:
+        setFont('4.7rem')
+      break;
+      case 8:
+        setFont('4.1rem')
+      break;
+      case (length >= 9):
+        setFont('3.4rem')
+      break;
+      default:
+      break;
+    }
+  }, [displayValue])
+
   function addValue(value){
-    if(displayValue.length < 9){
-      if(!oneFiled){
-        setDisplayValue(displayValue === '0' ? value : displayValue + value)
-        setFirstValue(Number(displayValue === '0' ? value : displayValue + value))
+    if(value === '.' && displayValue[displayValue.length - 1] === '.') return
+    if(!oneFiled && String(firstValue).length < 9){
+      setDisplayValue(displayValue === '0' ? value : displayValue + value)
+      setFirstValue(Number(displayValue === '0' ? value : displayValue + value))
+    }else if(String(secondValue).length < 9 && oneFiled){
+      if(!twoFiled){
+        setDisplayValue(value)
+        setSecondValue(Number(value))
+        setTwo(true)
       }else{
-        if(!twoFiled){
-          setDisplayValue(value)
-          setSecondValue(Number(value))
-          setTwo(true)
-        }else{
-          setDisplayValue(displayValue + value)
-          setSecondValue(Number(displayValue + value))
-        }
+        setDisplayValue(displayValue + value)
+        setSecondValue(Number(displayValue + value))
       }
-
-      switch(displayValue.length - (displayValue.split('.').length - 1)){
-        case 7:
-          setFont('5.2rem')
-        break;
-        case 8:
-          setFont('4.6rem')
-        break;
-        case 9: 
-          setFont('4rem')
-        break;
-        default:
-          setFont('5.8rem')
-        break;
-      }
-
-      //console.log(`FirstValue: ${firstValue} isFiled: ${oneFiled}`)
-      //console.log(`SecondValue: ${secondValue} isFiled: ${twoFiled}`)
-      //console.log(`Operation: ${operation}`)
-      //console.log(`DisplayValue: ${displayValue}`)
     }
   }
 
   function removeValues(){
     if(document.getElementById('cleanValue').innerHTML === 'C'){
-      displayValue.length === 1 ? setDisplayValue('0') : setDisplayValue(displayValue.slice(0, -1));
+      displayValue.length === 1 ? setDisplayValue('0') : setDisplayValue(displayValue.slice(0, -1))
     }else{
       setDisplayValue('0')
       setFirstValue(0)
@@ -92,13 +90,14 @@ export default function App() {
       setSecondValue(0)
       setTwo(false)
       setOperation(null)
+      setOne(false)
     }
 
   }
 
   function changePositiveOrNegative(){
-    if(!oneFiled){
-        if(Array.from(displayValue)[0] === '-'){
+    if(!oneFiled && !twoFiled){
+        if(displayValue[0] === '-'){
           setDisplayValue(displayValue.substring(1))
           setFirstValue(Number(displayValue.substring(1)))
         }else{
@@ -106,7 +105,7 @@ export default function App() {
           setFirstValue(Number('-' + displayValue))
         }
     }else{
-      if(Array.from(displayValue)[0] === '-'){
+      if(displayValue[0] === '-'){
         setDisplayValue(displayValue.substring(1))
         setSecondValue(Number(displayValue.substring(1)))
       }else{
@@ -118,10 +117,11 @@ export default function App() {
 
   function porcentageValue(){
     if(!oneFiled){
-      setDisplayValue(String(firstValue / 100))
-      setFirstValue(firstValue / 100)
+      setDisplayValue(String((firstValue / 100).toFixed(2)))
+      setFirstValue((firstValue / 100).toFixed(2))
+      
     }else{
-      setSecondValue((firstValue * secondValue) / 100)
+      setSecondValue(((firstValue * secondValue) / 100).toFixed(2))
     }
   }
 
